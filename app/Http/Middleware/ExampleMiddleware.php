@@ -16,8 +16,6 @@ class ExampleMiddleware
     public function handle($request, Closure $next)
     {
         $response = $next($request);
-            
-        $response->header('authorization', 'test');
 
         return $response;
     }

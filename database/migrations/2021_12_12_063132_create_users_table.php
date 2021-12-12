@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAuthorsTable extends Migration
+class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateAuthorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('authors', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string('account_id');
+            $table->string('password');
             $table->string('name');
-            $table->string('email');
-            $table->string('github');
-            $table->string('twitter')->nullable();
-            $table->string('location');
-            $table->string('latest_article_published');
+            $table->string('api_token')->nullable();
+            $table->integer('birth_year');
             $table->timestamps();
         });
     }
@@ -32,6 +31,6 @@ class CreateAuthorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('authors');
+        Schema::dropIfExists('users');
     }
 }

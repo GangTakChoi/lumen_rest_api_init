@@ -5,6 +5,8 @@ namespace App\Exceptions;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -62,6 +64,12 @@ class Handler extends ExceptionHandler
             'message' => 'You provided some invalid input value',
             'adaptMessage' => true,
         ],
+
+        AuthorizationException::class => [
+            'code' => 401,
+            'message' => true,
+            'adaptMessage' => true,
+        ]
     ];
 
     /**
@@ -122,17 +130,21 @@ class Handler extends ExceptionHandler
 
         }
 
+        $logIndex = base64_encode(Str::random(40));
+
+        Log::error('[Log-Index]'.$logIndex);
+
         $description = '';
 
-        if (env('APP_DEBUG', false))  
-            $description = $definition['message'];
-        else 
+        if (!env('APP_DEBUG', false) && $definition['code'] === 500)
             $description = 'server error';
-
+        else
+            $description = $definition['message'];
         return [
             'status' => $definition['code'] ?? 500,
             'title' => $definition['title'] ?? 'Error',
             'description' => $description,
+            'log_index' => $logIndex,
         ];
     }
 }

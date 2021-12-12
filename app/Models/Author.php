@@ -26,13 +26,8 @@ class Author extends Model
 
     public static function getAuthor($id)
     {
-      try {
-        $author = DB::select('select * from authors whre id = ?', [$id]);
+      $author = DB::select('select * from authors whre id = ?', [$id]);
 
-        return $author;
-      } catch (error) {
-        return false;
-      }
-      
+      return $author;
     }
 }

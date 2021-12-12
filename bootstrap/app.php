@@ -74,7 +74,7 @@ $app->configure('app');
 
 $app->middleware([
     App\Http\Middleware\Cors::class,
-    App\Http\Middleware\ExampleMiddleware::class,
+//    App\Http\Middleware\ExampleMiddleware::class,
 ]);
 
 $app->routeMiddleware([
@@ -93,7 +93,7 @@ $app->routeMiddleware([
 */
 
 // $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
+ $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
 /*
