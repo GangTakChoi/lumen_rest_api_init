@@ -13,13 +13,13 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
+// $router->get('/', function () use ($router) {
+//     return $router->app->version();
+// });
 
-$router->get('/user', ['middleware' => 'auth','UserController@getUserInfo']);
+// $router->get('/user', ['middleware' => 'auth','UserController@getUserInfo']);
 
-$router->post('/user/{id}', 'UserController@addUser');
+// $router->post('/user/{id}', 'UserController@addUser');
 
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('users', ['middleware' => 'auth', 'uses' => 'UserController@getAllUsers']);
@@ -29,4 +29,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('users', ['uses' => 'UserController@create']);
 });
 
+// $router->view('/web', 'test');
 
+$router->get('/{route:.*}/', function ()  {
+    return view('app');
+});
