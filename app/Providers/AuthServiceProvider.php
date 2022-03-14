@@ -34,7 +34,19 @@ class AuthServiceProvider extends ServiceProvider
             if ($request->header('Authorization')) {
                 $key = explode(' ',$request->header('Authorization'));
 
-                return User::where('api_token', $key[1])->first();
+                if ($request->is('*/user-api/*')) {
+                    echo 'user-api';
+                    return array('id' => 'test');
+                } else if ($request->is('*/admin-api/*')) {
+                    echo 'admin-api';
+                } else if ($request->is('*/store-api/*')) {
+                    echo 'store-api';
+                } else {
+                    return null;
+                }
+
+                return null;
+                // return User::where('api_token', $key[1])->first();
             }
         });
     }

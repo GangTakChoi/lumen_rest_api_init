@@ -8,7 +8,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+// use Auth;
 
 class UserController extends Controller
 {
@@ -23,8 +24,10 @@ class UserController extends Controller
     }
 
     public function getAllUsers(Request $request) {
-      $userList = User::all();
-      return response()->json(['userList' => $userList]);
+        // $userList = User::all();
+        $user = Auth::check();
+        echo $user;
+        // return response()->json($user);
     }
 
     public function login(Request $request) {

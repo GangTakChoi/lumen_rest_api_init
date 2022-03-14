@@ -110,7 +110,12 @@ $app->routeMiddleware([
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {
-    require __DIR__.'/../routes/web.php';
+    // require __DIR__.'/../routes/web.php';
+
+    foreach (glob(__DIR__."/../routes/*.php") as $filename)
+    {
+        require $filename;
+    }
 });
 
 return $app;
